@@ -1,4 +1,4 @@
-package com.notSolid;
+package com.notsolid;
 
 public class Test {
     public static void main(String[] args) {
@@ -20,11 +20,13 @@ public class Test {
 }
 
 interface ManageBooks{
+    //violates Interface Segregation Principle
     public void addBook(String name);
     public void removeBook(String name);
 }
-class Library_Management implements ManageBooks{
 
+class Library_Management implements ManageBooks{
+    //violates single responsibility
     @Override
     public void addBook(String name) {
         System.out.println("Add book : "+name);
@@ -54,20 +56,21 @@ class Librarian extends Staff{
     }
 }
 class Clerk extends Staff{
-
+    //violates Liskov Principle
     @Override
     public void loginAndLogout() {
-        System.out.println("Login and logout of system");
+        System.out.println("Clerk can't login and logout of system");
     }
 
     @Override
     public void manageApplications() {
-        System.out.println("Mange applications of members");
+        System.out.println("Clerk can't manage applications");
     }
 }
 class Notification_Service {
 
     public void notify(String typeOfNotification) {
+        //violates Open-Closed Principle
         if (typeOfNotification.equalsIgnoreCase("email")) {
             System.out.println("Notification sent through email.");
         } else if (typeOfNotification.equalsIgnoreCase("post")) {
@@ -96,6 +99,7 @@ class DebitCardPayment extends Transaction{
 }
 
 class FineTransaction{
+    //violates Dependency Inversion Principle
     private CreditCardPayment credit;
 
     public FineTransaction(CreditCardPayment credit) {
